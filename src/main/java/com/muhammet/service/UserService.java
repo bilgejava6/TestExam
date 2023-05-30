@@ -13,13 +13,16 @@ import java.util.Optional;
 public class UserService {
     private final IUserRepository userRepository;
 
-    public void save(User user){
+    public User save(User user){
+        /**
+         * User Repository ye ait bir kod bu nedenle repo da oluşacak bir hata sizide etkiler
+         */
         Optional<User> optionalUser = userRepository.findOptionalByAd(user.getAd());
         if(optionalUser.isPresent())
             throw new RuntimeException("Bu isimde bir kullanıcı zaten var");
         else if(user.getAd()==null)
             throw new RuntimeException("Kullanıcı adı boş olamaz");
-        userRepository.save(user);
+      return  userRepository.save(user);
     }
 
     public List<User> getAll(){
